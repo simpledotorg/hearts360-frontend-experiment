@@ -15,7 +15,7 @@ const getBasePath = () => {
   }
   
   // Default fallback - update this to match your repository name
-  return '/hearst360-package/'
+  return '/hearts360-frontend-experiment/'
 }
 
 export default defineConfig({
