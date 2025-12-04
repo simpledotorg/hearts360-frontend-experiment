@@ -2,6 +2,7 @@ Core settings for Vue app (data-) tags:
 - Languages: [English, Indonesian]
 - Locale: en-US
 - Top region slug: river-district
+- URL: /route or query params
 
 Maybe?
 - Timezone: UTC

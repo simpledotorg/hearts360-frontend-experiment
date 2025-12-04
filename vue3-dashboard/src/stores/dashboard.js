@@ -12,6 +12,19 @@ export const useDashboardStore = defineStore('dashboard', () => {
   const lastUpdated = ref(null)
   const activeDashboard = ref('hypertension') // 'hypertension' | 'diabetes' | 'overdue'
   const regionSearch = ref('')
+  
+  // Current selection for hierarchical data
+  const currentLevel = ref('national') // 'national' | 'region' | 'district' | 'facility'
+  const currentId = ref(null) // ID of the selected level
+  
+  // Month selector - default to current month in "Mmm-YYYY" format
+  const getCurrentMonthString = () => {
+    const now = new Date()
+    const month = now.toLocaleDateString('en-US', { month: 'short' })
+    const year = now.getFullYear()
+    return `${month}-${year}`
+  }
+  const selectedMonth = ref(getCurrentMonthString())
 
   const dashboardLinks = ref([
     {
@@ -219,6 +232,10 @@ export const useDashboardStore = defineStore('dashboard', () => {
     regionSearch.value = search
   }
 
+  function setSelectedMonth(month) {
+    selectedMonth.value = month
+  }
+
   function updateChartData(chartKey, data) {
     if (chartData.value.hasOwnProperty(chartKey)) {
       chartData.value[chartKey] = data
@@ -265,16 +282,26 @@ export const useDashboardStore = defineStore('dashboard', () => {
     }
   }
 
+  function setCurrentLevel(level, id = null) {
+    currentLevel.value = level
+    currentId.value = id
+  }
+
   /**
    * Fetch dashboard data from API
-   * @param {string} region - Optional region filter
+   * @param {string} region - Optional region filter (deprecated, use level/id instead)
+   * @param {string} level - Optional level ('national', 'region', 'district', 'facility')
+   * @param {string} id - Optional ID for specific level
    */
-  async function loadDashboardData(region = null) {
+  async function loadDashboardData(region = null, level = null, id = null) {
     isLoading.value = true
     error.value = null
 
     try {
-      const data = await fetchDashboardData(region)
+      // Use current level/id if not provided, otherwise use parameters
+      const dataLevel = level || currentLevel.value
+      const dataId = id || currentId.value
+      const data = await fetchDashboardData(region, dataLevel, dataId)
       
       // Update all store values with API data
       regionName.value = data.regionName
@@ -312,6 +339,9 @@ export const useDashboardStore = defineStore('dashboard', () => {
     lastUpdated.value = null
     activeDashboard.value = 'hypertension'
     regionSearch.value = ''
+    selectedMonth.value = getCurrentMonthString()
+    currentLevel.value = 'national'
+    currentId.value = null
     isLoading.value = false
     error.value = null
     
@@ -387,6 +417,9 @@ export const useDashboardStore = defineStore('dashboard', () => {
     lastUpdated,
     activeDashboard,
     regionSearch,
+    selectedMonth,
+    currentLevel,
+    currentId,
     patientsProtected,
     treatmentCascade,
     treatmentOutcomes,
@@ -410,6 +443,8 @@ export const useDashboardStore = defineStore('dashboard', () => {
     setLastUpdated,
     setActiveDashboard, 
     setRegionSearch,
+    setSelectedMonth,
+    setCurrentLevel,
     updateChartData,
     updateTreatmentOutcomes,
     updatePatientsProtected,
