@@ -1,9 +1,10 @@
 <template>
   <div class="hearts360-dashboard">
-    <TheNav />
+    <TheNav @navigate="handleNavigation" />
+    <Breadcrumbs :currentPage="currentPage" @navigate="handleNavigation" />
 
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" v-if="currentPage === 'dashboard'">
       <!-- Loading State -->
       <div v-if="store.isLoading" class="loading-container" style="text-align: center; padding: 2rem;">
         <p>{{ $t('common.loading') }}</p>
@@ -17,7 +18,6 @@
 
       <!-- Dashboard Content -->
       <template v-if="!store.isLoading && !store.error">
-        <Breadcrumbs />
         <div class="header">
           <h1>{{ store.regionName }}</h1>
           <div class="date-updated">{{ $t('common.dataLastUpdated') }}: {{ store.formattedLastUpdated }}</div>
@@ -537,7 +537,9 @@
       </div>
 
       </template>
+      <Footer />
     </main>
+    <Upload v-else-if="currentPage === 'upload'" />
   </div>
 </template>
 
@@ -547,7 +549,17 @@ import { Chart, registerables } from 'chart.js'
 import { createChart as createChartUtil } from './utils/charts.js'
 import TheNav from './components/TheNav.vue'
 import Breadcrumbs from './components/Breadcrumbs.vue'
+import Upload from './components/Upload.vue'
+import Footer from './components/Footer.vue'
 import { useDashboardStore } from './stores/dashboard'
+
+// Current page state
+const currentPage = ref('dashboard')
+
+// Handle navigation from TheNav
+const handleNavigation = (page) => {
+  currentPage.value = page
+}
 
 // register store
 const store = useDashboardStore()

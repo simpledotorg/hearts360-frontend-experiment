@@ -87,3 +87,20 @@ export async function updateDashboardData(updates) {
   }
 }
 
+/**
+ * Check for application version updates
+ * @returns {Promise<Object>} Version information with latest version
+ */
+export async function checkVersion() {
+  await delay(300) // Simulate network delay
+  
+  // In a real app, this would check an API endpoint or npm registry
+  // For now, return current version (no update available)
+  // To test update availability, you can change the version here
+  return {
+    current: '1.0.0',
+    latest: '1.0.0', // Change to '1.0.1' or higher to test update notification
+    updateAvailable: false
+  }
+}
+

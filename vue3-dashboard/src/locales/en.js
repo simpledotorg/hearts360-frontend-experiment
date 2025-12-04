@@ -13,7 +13,7 @@ export default {
     selectLanguage: 'Select language',
     language: 'Language',
     english: 'English',
-    indonesian: 'Indonesian'
+    indonesian: 'Bahasa Indonesia'
   },
 
   // Common

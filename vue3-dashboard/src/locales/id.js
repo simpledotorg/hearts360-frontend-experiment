@@ -12,7 +12,7 @@ export default {
     overduePatientsList: 'Daftar pasien terlambat',
     selectLanguage: 'Pilih bahasa',
     language: 'Bahasa',
-    english: 'Bahasa Inggris',
+    english: 'English',
     indonesian: 'Bahasa Indonesia'
   },
 
