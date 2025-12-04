@@ -9,12 +9,22 @@ This guide explains how to set up GitHub Actions to automatically build and depl
 
 ## Setup Steps
 
-### 1. Enable GitHub Pages
+### 1. Enable GitHub Pages (REQUIRED - Must be done manually first)
 
-1. Go to your repository on GitHub
+**IMPORTANT:** You must manually enable GitHub Pages before the workflow can deploy.
+
+1. Go to your repository on GitHub: https://github.com/simpledotorg/hearts360-frontend-experiment
 2. Navigate to **Settings** → **Pages**
-3. Under **Source**, select **GitHub Actions** (not "Deploy from a branch")
-4. Save the settings
+3. Under **Source**, select **"GitHub Actions"** (not "Deploy from a branch")
+4. Click **Save**
+
+### 2. Set Workflow Permissions
+
+1. Go to **Settings** → **Actions** → **General**
+2. Scroll down to **Workflow permissions**
+3. Select **"Read and write permissions"**
+4. Check **"Allow GitHub Actions to create and approve pull requests"** (optional but recommended)
+5. Click **Save**
 
 ### 2. Repository Name Configuration
 
