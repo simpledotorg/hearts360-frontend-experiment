@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEARTS360 Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module">
+    import { createApp } from 'vue';
+    import Hearts360Dashboard from '../vue/Hearts360Dashboard.vue';
+
+    // Get configuration from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const configParam = urlParams.get('config');
+    
+    let config = {};
+    if (configParam) {
+      try {
+        config = JSON.parse(decodeURIComponent(configParam));
+      } catch (e) {
+        console.error('Failed to parse config parameter:', e);
+      }
+    }
+
+    // Create Vue app
+    const app = createApp(Hearts360Dashboard, {
+      config: config,
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
+
+
+
