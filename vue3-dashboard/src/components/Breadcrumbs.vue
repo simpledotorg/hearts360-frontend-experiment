@@ -1,5 +1,9 @@
 <template>
-  <nav class="breadcrumbs" aria-label="Breadcrumb" v-if="store.regionName || currentPage === 'upload'">
+  <nav
+    class="breadcrumbs"
+    aria-label="Breadcrumb"
+    v-if="store.regionName || currentPage === 'upload'"
+  >
     <!-- Upload page: Show return to dashboard link -->
     <ol class="breadcrumbs-list" v-if="currentPage === 'upload'">
       <li class="breadcrumb-item">
@@ -9,7 +13,7 @@
           aria-label="Return to the dashboard"
           @click.prevent="navigateToDashboard"
         >
-          ‹ Return to the dashboard
+          ‹ {{ $t("breadcrumbs.returnToDashboard") }}
         </a>
       </li>
     </ol>
@@ -49,11 +53,11 @@ import {
 const props = defineProps({
   currentPage: {
     type: String,
-    default: 'dashboard'
-  }
+    default: "dashboard",
+  },
 });
 
-const emit = defineEmits(['navigate']);
+const emit = defineEmits(["navigate"]);
 
 const store = useDashboardStore();
 
@@ -164,7 +168,7 @@ const navigateToLevel = (level, id) => {
 
 // Navigate to dashboard
 const navigateToDashboard = () => {
-  emit('navigate', 'dashboard');
+  emit("navigate", "dashboard");
 };
 </script>
 

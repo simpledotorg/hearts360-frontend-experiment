@@ -13,7 +13,12 @@ export default {
     selectLanguage: 'Select language',
     language: 'Language',
     english: 'English',
-    indonesian: 'Bahasa Indonesia'
+    indonesian: 'Bahasa Indonesia',
+  },
+
+  // Breadcrumbs
+  breadcrumbs: {
+    returnToDashboard: 'Return to dashboard'
   },
 
   // Common
