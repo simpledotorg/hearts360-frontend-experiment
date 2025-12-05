@@ -42,11 +42,10 @@ jobs:
           NODE_ENV: production
           GITHUB_REPOSITORY: ${{ github.repository }}
       
-      # NOTE: GitHub Pages must be manually enabled first!
-      # Go to: https://github.com/simpledotorg/hearts360-frontend-experiment/settings/pages
-      # Under "Source", select "GitHub Actions" and click Save
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
         continue-on-error: false
       
       - name: Upload artifact
