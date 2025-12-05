@@ -908,7 +908,6 @@
         </div>
       </div>
     </template>
-    <Footer />
   </main>
 </template>
 
@@ -916,7 +915,6 @@
 import { ref, onMounted, onBeforeUnmount, nextTick, watch } from "vue";
 import { Chart, registerables } from "chart.js";
 import { createChart as createChartUtil } from "../utils/charts.js";
-import Footer from "./Footer.vue";
 import { useDashboardStore } from "../stores/dashboard.js";
 
 // Register store
