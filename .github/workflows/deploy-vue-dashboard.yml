@@ -44,16 +44,28 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        with:
-          enablement: true
-        continue-on-error: false
+        continue-on-error: true
+        id: pages
+      
+      - name: Check Pages Setup
+        if: steps.pages.outcome != 'success'
+        run: |
+          echo "::error::GitHub Pages is not enabled for this repository."
+          echo "::error::Please enable GitHub Pages manually:"
+          echo "::error::1. Go to https://github.com/${{ github.repository }}/settings/pages"
+          echo "::error::2. Under 'Source', select 'GitHub Actions'"
+          echo "::error::3. Click 'Save'"
+          echo "::error::4. Then re-run this workflow"
+          exit 1
       
       - name: Upload artifact
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './vue3-dashboard/dist'
       
       - name: Deploy to GitHub Pages
+        if: steps.pages.outcome == 'success'
         id: deployment
         uses: actions/deploy-pages@v4
 
