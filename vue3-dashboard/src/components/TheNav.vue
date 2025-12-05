@@ -148,41 +148,14 @@
 
       <div class="flex justify-end items-center gap-2">
         <div class="language-selector">
-          <button 
-            @click="showLanguageMenu = !showLanguageMenu"
-            class="nav-button-base language-select-button"
-            type="button"
+          <select 
+            v-model="selectedLanguage" 
+            @change="onLanguageChange"
+            class="language-select nav-button-base"
           >
-            {{ currentLanguageLabel }}
-            <svg 
-              class="language-select-arrow"
-              :class="{ 'rotate-180': showLanguageMenu }"
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 20 20" 
-              fill="currentColor"
-            >
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <div 
-            v-if="showLanguageMenu"
-            class="language-menu"
-          >
-            <button
-              @click="changeLanguage('en')"
-              class="language-menu-item"
-              :class="{ 'language-menu-item-active': locale.value === 'en' }"
-            >
-              {{ $t('nav.english') }}
-            </button>
-            <button
-              @click="changeLanguage('id')"
-              class="language-menu-item"
-              :class="{ 'language-menu-item-active': locale.value === 'id' }"
-            >
-              {{ $t('nav.indonesian') }}
-            </button>
-          </div>
+            <option value="en">{{ $t('nav.english') }}</option>
+            <option value="id">{{ $t('nav.indonesian') }}</option>
+          </select>
         </div>
         <a 
           class="nav-button-base" 
@@ -460,7 +433,16 @@ const selectedMonth = computed({
   set: (value) => { store.setSelectedMonth(value) }
 })
 
-const showLanguageMenu = ref(false)
+// Language selection
+const selectedLanguage = computed({
+  get: () => locale.value,
+  set: (value) => { locale.value = value }
+})
+
+const onLanguageChange = () => {
+  // Save to localStorage for persistence
+  localStorage.setItem('preferred-language', selectedLanguage.value)
+}
 
 // Generate month options: current month + past 6 months
 const generateMonthOptions = () => {
@@ -486,23 +468,6 @@ const onMonthChange = () => {
   console.log('Selected month:', selectedMonth.value)
 }
 
-const currentLanguageLabel = computed(() => {
-  // Show language name in its own language
-  if (locale.value === 'en') {
-    return 'English'
-  } else {
-    // Use Indonesian translation for Indonesian
-    return t('nav.indonesian')
-  }
-})
-
-const changeLanguage = (lang) => {
-  locale.value = lang
-  showLanguageMenu.value = false
-  // Save to localStorage for persistence
-  localStorage.setItem('preferred-language', lang)
-}
-
 // Navigate to upload page
 const navigateToUpload = () => {
   emit('navigate', 'upload')
@@ -511,13 +476,6 @@ const navigateToUpload = () => {
 // Navigate to dashboard
 const navigateToDashboard = () => {
   emit('navigate', 'dashboard')
-}
-
-// Close menu when clicking outside
-const handleClickOutside = (event) => {
-  if (!event.target.closest('.language-selector')) {
-    showLanguageMenu.value = false
-  }
 }
 
 // Initialize expanded state based on current selection
@@ -542,11 +500,6 @@ const initializeExpandedState = () => {
 }
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
   initializeExpandedState()
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
 })
 </script>

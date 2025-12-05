@@ -1185,7 +1185,7 @@
     appearance: none;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
     background-repeat: no-repeat;
-    background-position: right 8px center;
+    background-position: right 10px center;
     background-size: 16px;
     
     @media screen and (min-width: 660px) {
@@ -1212,65 +1212,28 @@
     }
   }
 
-  /* Language selector button - uses nav-button-base design with flex layout */
-  .language-select-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  /* Language selector - standard dropdown using nav-button-base design */
+  .language-select {
+    --nav-btn-padding-x: 40px; /* Extra padding for dropdown arrow */
+    padding-right: 40px;
+    padding-left: 20px;
+    display: block;
     width: 100%;
-    
+    appearance: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    background-color: transparent;
+    outline: 1px solid #ffffff60;
+    outline-offset: -1px;
     @media screen and (min-width: 660px) {
       width: auto;
     }
-  }
 
-  .language-select-arrow {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.2s ease;
-  }
-
-  .language-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    margin-top: 0.25rem;
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border: 1px solid #e5e7eb;
-    min-width: 150px;
-    z-index: 50;
-    overflow: hidden;
-  }
-
-  .language-menu-item {
-    width: 100%;
-    text-align: left;
-    padding: 0.5rem 1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
-    color: #333;
-    transition: background-color 0.2s ease;
-
-    &:first-child {
-      border-radius: 4px 4px 0 0;
-    }
-
-    &:last-child {
-      border-radius: 0 0 4px 4px;
-    }
-
-    &:hover {
-      background-color: #f3f4f6;
-    }
-
-    &.language-menu-item-active {
-      background-color: #eff6ff;
-      font-weight: 600;
+    option {
+      background: #fff;
+      color: #333;
     }
   }
 
