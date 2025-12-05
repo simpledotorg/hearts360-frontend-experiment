@@ -2,6 +2,8 @@
 
 A flexible, embeddable health data dashboard that can be easily integrated into various systems including web applications, desktop apps, DHIS2, and other platforms.
 
+[Demo link](https://simpledotorg.github.io/hearts360-frontend-experiment/) 
+
 ## Features
 
 - 🎯 **Framework-Agnostic** - Works with React, Vue, Angular, or vanilla JavaScript
