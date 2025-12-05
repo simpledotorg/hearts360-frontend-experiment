@@ -3,15 +3,16 @@
 /* All styles scoped to .hearts360-dashboard to prevent conflicts when embedding */
 .hearts360-dashboard {
   --system-ui: system-ui, Roboto, Helvetica, Arial, sans-serif;
-  
+
   font-family: var(--system-ui) !important;
   background: #f8f8f8;
   min-height: 100vh;
   scroll-behavior: smooth;
 
   /* Nested selectors - all scoped to .hearts360-dashboard */
-  
-  a, select {
+
+  a,
+  select {
     color: #0075eb;
     &:hover {
       color: #004f9f;
@@ -280,10 +281,6 @@
       display: flex;
       gap: 16px;
     }
-    .navigation-title-image {
-      margin: -2px 8px 0 8px;
-      display: inline-block;
-    }
     & .link-list {
       display: flex;
       justify-content: end;
@@ -296,17 +293,7 @@
         content: " ↗";
       }
     }
-    & a {
-      color: #fff;
-      display: inline-block;
-      padding: 4px 2px;
-    }
-    & span {
-      display: inline-block;
-      padding: 4px 2px;
-    }
   }
-
   .link-dashboards {
     font-size: 0.9rem;
     margin: 0 0 1rem 0;
@@ -968,6 +955,65 @@
     opacity: 1;
   }
 
+  /* Standard Nav Button Design System */
+  /* 
+   * Base class for all navigation buttons - provides consistent styling
+   * Usage: Add 'nav-button-base' class to any button/link, or use specific variants
+   * 
+   * Design Tokens:
+   * - Color: White text on semi-transparent white background
+   * - Padding: 8px 20px (standard), customizable per variant
+   * - Border radius: 4px
+   * - Font: 0.9em, weight 600
+   * - Hover: Slightly brighter background (0.3 opacity)
+   * - Focus: White outline for accessibility
+   */
+  .nav-button-base {
+    /* Design tokens */
+    --nav-btn-color: #fff;
+    --nav-btn-bg: rgba(255, 255, 255, 0.2);
+    --nav-btn-bg-hover: rgba(255, 255, 255, 0.3);
+    --nav-btn-bg-active: rgba(255, 255, 255, 0.25);
+    --nav-btn-border-radius: 4px;
+    --nav-btn-padding-x: 20px;
+    --nav-btn-padding-y: 8px;
+    --nav-btn-font-size: 0.9em;
+    --nav-btn-font-weight: 600;
+    --nav-btn-outline: 2px solid rgba(255, 255, 255, 0.5);
+    
+    /* Apply tokens */
+    color: var(--nav-btn-color);
+    background: var(--nav-btn-bg);
+    border-radius: var(--nav-btn-border-radius);
+    font-weight: var(--nav-btn-font-weight);
+    font-size: var(--nav-btn-font-size);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    padding: var(--nav-btn-padding-y) var(--nav-btn-padding-x);
+    
+    @media screen and (min-width: 660px) {
+      text-align: left;
+    }
+    
+    &:hover {
+      background-color: var(--nav-btn-bg-hover);
+      color: #fff;
+    }
+    
+    &:focus {
+      outline: var(--nav-btn-outline);
+      outline-offset: 2px;
+    }
+    
+    &:active {
+      background-color: var(--nav-btn-bg-active);
+    }
+  }
+
   /* Selectors Container */
   .selectors-container {
     display: flex;
@@ -991,17 +1037,13 @@
       max-width: fit-content;
       display: inline-block;
     }
+    /* Region selector button - uses nav-button-base design */
     .hover-button {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 8px 20px;
-      display: inline;
-      border-radius: 4px;
-      font-weight: 600;
       display: block;
-      text-align: center;
+      width: 100%;
+      
       @media screen and (min-width: 660px) {
-        text-align: left;
+        width: auto;
       }
     }
     .hover-button-hover-state {
@@ -1134,42 +1176,25 @@
     }
   }
 
+  /* Month selector - uses nav-button-base design with dropdown arrow */
   .month-select {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    border: none;
-    display: block;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.9em;
-    @media screen and (min-width: 660px) {
-      text-align: left;
-      width: auto;
-    }
+    --nav-btn-padding-x: 40px; /* Extra padding for dropdown arrow */
+    padding-right: 40px;
+    padding-left: 20px;
+
     appearance: none;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
     background-repeat: no-repeat;
     background-position: right 8px center;
     background-size: 16px;
-    padding-right: 40px;
     
+    @media screen and (min-width: 660px) {
+      width: auto;
+    }
+
     option {
       background: #fff;
       color: #333;
-    }
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      color: #fff;
-    }
-    
-    &:focus {
-      outline: 2px solid rgba(255, 255, 255, 0.5);
-      outline-offset: 2px;
     }
   }
 
@@ -1187,33 +1212,16 @@
     }
   }
 
+  /* Language selector button - uses nav-button-base design with flex layout */
   .language-select-button {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.9em;
+    
     @media screen and (min-width: 660px) {
-      text-align: left;
       width: auto;
-    }
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    &:focus {
-      outline: 2px solid rgba(255, 255, 255, 0.5);
-      outline-offset: 2px;
     }
   }
 
@@ -1247,51 +1255,28 @@
     font-size: 0.875rem;
     color: #333;
     transition: background-color 0.2s ease;
-    
+
     &:first-child {
       border-radius: 4px 4px 0 0;
     }
-    
+
     &:last-child {
       border-radius: 0 0 4px 4px;
     }
-    
+
     &:hover {
       background-color: #f3f4f6;
     }
-    
+
     &.language-menu-item-active {
       background-color: #eff6ff;
       font-weight: 600;
     }
   }
 
-  /* Upload Button */
-  .upload-button {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
+  /* Upload Button - uses nav-button-base standard design */
+  .upload-button & a:hover {
     text-decoration: none;
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 0.9em;
-    cursor: pointer;
-    @media screen and (min-width: 660px) {
-      text-align: left;
-      width: auto;
-    }
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    &:focus {
-      outline: 2px solid rgba(255, 255, 255, 0.5);
-      outline-offset: 2px;
-    }
   }
 
   .search-results {

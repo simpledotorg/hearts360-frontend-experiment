@@ -4,9 +4,9 @@
     <div class="banner-body">
       <div class="selectors-container">
         <div class="region-nav">
-          <div class="hover-button">Choose region or facility...</div>
+          <div class="hover-button nav-button-base">Choose region or facility...</div>
           <div class="card nav-hover-content">
-            <div class="hover-button hover-button-hover-state">
+            <div class="nav-button-base hover-button hover-button-hover-state">
               {{ $t('nav.chooseRegion') }}
             </div>
             <form class="search-form">
@@ -115,7 +115,7 @@
           <select 
             v-model="selectedMonth" 
             @change="onMonthChange"
-            class="month-select"
+            class="month-select nav-button-base"
           >
             <option 
               v-for="month in monthOptions" 
@@ -150,10 +150,10 @@
         <div class="language-selector">
           <button 
             @click="showLanguageMenu = !showLanguageMenu"
-            class="language-select-button"
+            class="nav-button-base language-select-button"
             type="button"
           >
-            <span>{{ currentLanguageLabel }}</span>
+            {{ currentLanguageLabel }}
             <svg 
               class="language-select-arrow"
               :class="{ 'rotate-180': showLanguageMenu }"
@@ -185,7 +185,7 @@
           </div>
         </div>
         <a 
-          class="upload-button" 
+          class="nav-button-base" 
           href="#"
           @click.prevent="navigateToUpload"
         >
